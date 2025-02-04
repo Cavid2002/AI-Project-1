@@ -2,15 +2,28 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-class Point
-{
+import java.util.Objects;
+
+class Point {
     public int x;
     public int y;
 
-    Point(int x, int y)
-    {
+    Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Point)) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
 
@@ -29,7 +42,7 @@ class Node implements Comparable<Node>
     public int compareTo(Node other) {
         return Integer.compare(this.cost, other.cost);
     }
-    
+
 }
 
 
@@ -88,8 +101,7 @@ public class Map
     public boolean isValid(Point p)
     {
         if(p.x < 0 || p.y < 0 || p.x >= col || p.y >= row) return false;
-        if(map[p.y * row + p.x] == 1) return false;
-        return true;
+        return map[p.y * col + p.x] == 0;
     }
 
     int ucs(Point start, Point stop)
