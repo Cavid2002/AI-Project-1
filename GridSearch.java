@@ -1,7 +1,7 @@
 import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.PriorityQueue;
-
+import java.util.Scanner;
 import java.util.Objects;
 
 class Point {
@@ -46,7 +46,7 @@ class Node implements Comparable<Node>
 }
 
 
-public class Map
+public class GridSearch
 {   
     public int row;
     public int col;
@@ -55,7 +55,7 @@ public class Map
     private static final int[] dx = {-1, 1, 0, 0};
     private static final int[] dy = {0, 0, -1, 1};
 
-    Map(String filename, int row, int col)
+    GridSearch(String filename, int row, int col)
     {   
         this.row = row;
         this.col = col;
@@ -166,7 +166,7 @@ public class Map
         {
             Node current = pq.poll();
             Point currPoint = current.p;
-            int currCost = current.cost;
+            int currCost = costMap.get(currPoint);
 
             if(currPoint.equals(stop)) return currCost;
 
@@ -182,26 +182,41 @@ public class Map
                 
                 if(!costMap.containsKey(np) || costMap.get(np) > newCost)
                 {
-                    costMap.put(np, newCost);
+                    costMap.put(np, currCost + 1);
                     pq.add(new Node(np, newCost));
                 }
 
             }
             
         }
-        
-
-        
 
         return -1;
     }
 
     public static void main(String[] args)
     {
-        Map map = new Map("sample.txt", 4, 4);
-        map.print_map();
-        int res = map.aStart(new Point(0, 0), new Point(3,3));
+        GridSearch gs = new GridSearch("maze1.txt", 81, 81);
+        
+        Scanner scan = new Scanner(System.in);
+        
+        int x1 = scan.nextInt(); int y1 = scan.nextInt();
+        int x2 = scan.nextInt(); int y2 = scan.nextInt();
 
-        System.out.println(res);
+        scan.close();
+
+        int resInformed = gs.aStart(new Point(x1, y1), new Point(x2, y2));
+        int resUninformed = gs.ucs(new Point(x1, y1), new Point(x2, y2));
+
+        System.out.println("Informed:" + resInformed);
+        System.out.println("Uninformed:" + resUninformed);
+
+        if(resInformed != -1)
+        {
+            System.out.println("YES");
+        }
+        else
+        {
+            System.out.println("NO");
+        }
     }
 }
