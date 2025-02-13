@@ -55,6 +55,7 @@ public class GridSearch
     private static final int[] dx = {-1, 1, 0, 0};
     private static final int[] dy = {0, 0, -1, 1};
 
+    /** Reads a grid from a file to the array of 1/0 ints **/
     GridSearch(String filename, int row, int col)
     {   
         this.row = row;
