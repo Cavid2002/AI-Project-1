@@ -68,11 +68,10 @@ public class GridSearch
         try
         {
             FileInputStream file = new FileInputStream(filename);
-
             int b;
             while((b = file.read()) != -1)
             {
-                if(b == '\n' || b == ' ')
+                if(b != '1' && b != '0')
                 {
                     continue;
                 }
@@ -84,6 +83,7 @@ public class GridSearch
         }
         catch(Exception e)
         {
+            System.err.println("File IO Error");
             System.exit(1);
         }
         
