@@ -13,7 +13,7 @@ public class Main {
         scan.close();
 
         int resInformed = gs.aStar(new Point(x1, y1), new Point(x2, y2));
-        System.out.println("Result:" + resInformed);
+        
 
         if(resInformed != -1)
         {
@@ -23,5 +23,7 @@ public class Main {
         {
             System.out.println("NO");
         }
+
+        System.out.println("Cost:" + resInformed);
     }
 }
