@@ -14,7 +14,6 @@ public class Main {
 
         int resInformed = gs.aStar(new Point(x1, y1), new Point(x2, y2));
         
-
         if(resInformed != -1)
         {
             System.out.println("YES");
