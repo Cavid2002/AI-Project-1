@@ -101,18 +101,43 @@ public class GridSearch
         }
     }
 
+   /**
+    * Checks if a given point is valid within the grid/map.
+    * A point is considered valid if it lies within the grid boundaries and is not blocked (i.e., its value in the map is 0).
+    * By default 0 considered to be empty space and 1 is an obstacle
+    * Adjust value of the obstacle and empty space by changing value at line 115 by return from zero to one
+    * @param p The point to validate.
+    * @return True if the point is valid (within bounds and not blocked), false otherwise.
+    */
     public boolean isValid(Point p)
     {
         if(p.x < 0 || p.y < 0 || p.x >= col || p.y >= row) return false;
         return map[p.y * this.col + p.x] == 0;
     }
 
+    /**
+    * Computes the Manhattan distance (heuristic cost) between two points.
+    * 
+    * @param p1 The first point.
+    * @param p2 The second point.
+    * @return The Manhattan distance between the two points.
+    */
     public int heuristics(Point p1, Point p2)
     {
         int mdist = Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
         return mdist;
     }
 
+
+    /**
+    * Implements the A* search algorithm to find the shortest path from a start point to a stop point in the grid/map.
+    * The algorithm uses a priority queue to explore nodes with the lowest estimated total cost (f = g + h),
+    * where g is the cost from the start to the current node, and h is the heuristic estimate from the current node to the goal.
+    *
+    * @param start The starting point of the search.
+    * @param stop The goal point of the search.
+    * @return The shortest path cost to the stop point, or -1 if no path exists.
+    */
     public int aStar(Point start, Point stop)
     {
         PriorityQueue<Node> pq = new PriorityQueue<>(); 
@@ -152,6 +177,17 @@ public class GridSearch
         return -1;
     }
     
+
+    /**
+    * Performs a Uniform Cost Search (UCS) to find the minimum cost path from a start point to a stop point.
+    * The search explores the grid using a priority queue, prioritizing nodes with the lowest cost.
+    * The cost of moving to any neighboring point is assumed to be 1.
+    *
+    * @param start The starting point of the search.
+    * @param stop  The target point to reach.
+    * @return The minimum cost to reach the stop point from the start point. 
+    * Returns -1 if the stop point is unreachable.
+    */
     public int ucs(Point start, Point stop)
     {
         PriorityQueue<Node> pq = new PriorityQueue<>(); 

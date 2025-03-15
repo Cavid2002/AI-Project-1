@@ -4,7 +4,6 @@ public class Main {
     public static void main(String[] args)
     {
         GridSearch gs = new GridSearch("maze1.txt", 81, 81);
-        
         Scanner scan = new Scanner(System.in);
 
         int x1 = scan.nextInt(); int y1 = scan.nextInt();
